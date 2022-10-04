@@ -1,0 +1,12 @@
+
+/* ------ PROMO SCHEME NOTES ------- */
+
+.pos .order .promo-scheme {
+    margin: 8px;
+    color: #00ff00;
+}
+.promo-scheme .fa {
+    opacity: 0.5;
+    margin-right: 4px;
+}
+

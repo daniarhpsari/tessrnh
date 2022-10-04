@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="PromoSchemeButton">
+        <div class='control-button'>
+            <i class='fa fa-gift' /> Promotion
+        </div>
+    </t>
+
+    <t t-extend="Orderline">
+        <t t-jquery=".info-list" t-operation="append">
+            <t t-if="line.get_scheme()">
+                <li class="info promo-scheme">
+                    <i class='fa fa-gift'/> <t t-esc="line.get_scheme().name" />
+                </li>
+            </t>
+        </t>
+    </t>
+
+</templates>

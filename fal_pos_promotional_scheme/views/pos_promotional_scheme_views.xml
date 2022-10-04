@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+        <record id="fal_view_pos_promotional_scheme_form" model="ir.ui.view">
+            <field name="name">fal.view.pos.promotional.scheme.form</field>
+            <field name="model">fal.pos.promotional.scheme</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                                <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                            </button>
+                        </div>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" placeholder="Free Item after 100$ Purchase"/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <label for="date_start" string="Scheme Period"/>
+                                <div style="display: inline;">
+                                    <field name="date_start" class="oe_inline"/> to
+                                    <field name="date_end" class="oe_inline"/>
+                                </div>
+                                <field name="scheme_type"/>
+                                <field name="repeatable"/>
+                                <field name="auto_check"/>
+                                <field name="group_scheme"/>
+                                <field name="parent_scheme" attrs="{'invisible': [('group_scheme', '=', False)]}" domain="[('group_scheme', '=', group_scheme)]"/>
+                                <field name="child_scheme" attrs="{'invisible': [('group_scheme', '=', False)]}" domain="[('group_scheme', '=', group_scheme)]"/>
+                            </group>
+                            <group>
+                                <field name="product_id" attrs="{'invisible': [('scheme_type', '!=', 'product')], 'required': [('scheme_type', '=', 'product')]}"/>
+                                <field name="product_uom_qty" attrs="{'invisible': [('scheme_type', '!=', 'product')], 'required': [('scheme_type', '=', 'product')]}"/>
+                                <field name="price_unit" attrs="{'invisible': [('scheme_type', '!=', 'product')], 'required': [('scheme_type', '=', 'product')]}"/>
+                                <field name="currency_id" invisible="1"/>
+                                <field name="discount_percentage" attrs="{'invisible': [('scheme_type', '!=', 'discount')], 'required': [('scheme_type', '=', 'discount')]}"/>
+                                <field name="discount_after_tax" attrs="{'invisible': [('scheme_type', '!=', 'discount')]}"/>
+                            </group>
+
+                            <group>
+                                <field name="product_ids" widget="many2many_tags" attrs="{'invisible': [('scheme_type', '!=', 'product')], 'required': [('scheme_type', '=', 'product')]}"/>
+                                <field name="categ_ids" widget="many2many_tags" attrs="{'invisible': [('scheme_type', '!=', 'product')], 'required': [('scheme_type', '=', 'product')]}"/>
+                                <!-- <field name="product_brand_ids" widget="many2many_tags" attrs="{'invisible': [('scheme_type', '!=', 'product')], 'required': [('scheme_type', '=', 'product')]}"/> -->
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Rules">
+                                <field name="rule_ids">
+                                    <tree string="Rules">
+                                        <field name="rule_type"/>
+                                        <field name="product_id"/>
+                                        <field name="sale_total"/>
+                                        <field name="product_uom_qty"/>
+                                        <field name="currency_id" invisible="1"/>
+                                    </tree>
+                                    <form string="Rules">
+                                        <group>
+                                            <field name="rule_type"/>
+                                            <field name="product_id" attrs="{'invisible': [('rule_type', 'not in', ['purchase_product'])], 'required': [('rule_type', 'in', ['purchase_product'])]}"/>
+                                            <field name="product_ids" widget="many2many_tags" attrs="{'invisible': [('rule_type', 'not in', ['purchase_product'])], 'required': [('rule_type', 'in', ['purchase_product'])]}"/>
+                                            <field name="categ_ids" widget="many2many_tags" attrs="{'invisible': [('rule_type', 'not in', ['purchase_product'])], 'required': [('rule_type', 'in', ['purchase_product'])]}"/>
+                                            <!-- <field name="product_brand_ids" attrs="{'invisible': [('rule_type', 'not in', ['purchase_product'])], 'required': [('rule_type', 'in', ['purchase_product'])]}"/> -->
+                                        </group>
+                                        <group>
+                                            <field name="sale_total"  attrs="{'invisible': [('rule_type', 'not in', ['total_nett_sale', 'total_gross_sale'])], 'required': [('rule_type', 'in', ['total_nett_sale', 'total_gross_sale'])]}"/>
+                                            <field name="product_uom_qty" attrs="{'invisible': [('rule_type', 'not in', ['purchase_product'])], 'required': [('rule_type', 'in', ['purchase_product'])]}"/>
+                                            <field name="currency_id" invisible="1"/>
+                                        </group>
+                                    </form>
+                                </field>
+                            </page>
+                            <page string="Available on PoS">
+                                <field name="pos_config_promotional_scheme_ids" options="{'no_create_edit': True}"/>
+                            </page>
+                            <page string="Security">
+                                <field name="groups_id"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="fal_view_pos_promotional_scheme_tree" model="ir.ui.view">
+            <field name="name">fal.view.pos.promotional.scheme.tree</field>
+            <field name="model">fal.pos.promotional.scheme</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="scheme_type"/>
+                    <field name="product_id"/>
+                    <field name="group_scheme"/>
+                    <field name="child_scheme"/>
+                    <field name="parent_scheme"/>
+                    <field name="repeatable"/>
+                    <field name="auto_check"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="action_fal_view_pos_promotional_scheme">
+            <field name="name">Promotional Scheme</field>
+            <field name="res_model">fal.pos.promotional.scheme</field>
+            <!-- <field name="view_type">form</field> -->
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <menuitem id="menu_fal_view_pos_promotional_scheme"
+                  parent="point_of_sale.pos_config_menu_catalog"
+                  action="action_fal_view_pos_promotional_scheme"
+        />
+
+</odoo>

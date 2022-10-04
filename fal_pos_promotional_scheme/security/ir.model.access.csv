@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_promotional_scheme_user,promotional.scheme.user,model_fal_pos_promotional_scheme,point_of_sale.group_pos_user,1,0,0,0
+access_promotional_scheme_manager,promotional.scheme.manager,model_fal_pos_promotional_scheme,point_of_sale.group_pos_manager,1,1,1,1
+access_promotional_scheme_rule_user,promotional.scheme.rule.user,model_fal_pos_promotional_scheme_rule,point_of_sale.group_pos_user,1,0,0,0
+access_promotional_scheme_rule_manager,promotional.scheme.rule.manager,model_fal_pos_promotional_scheme_rule,point_of_sale.group_pos_manager,1,1,1,1
+access_promotional_scheme_group_user,promotional.scheme.group.user,model_fal_pos_promotional_scheme_group,point_of_sale.group_pos_user,1,0,0,0
+access_promotional_scheme_group_manager,promotional.scheme.group.manager,model_fal_pos_promotional_scheme_group,point_of_sale.group_pos_manager,1,1,1,1

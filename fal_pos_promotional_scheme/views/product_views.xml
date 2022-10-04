@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <!-- Promotional Item in Form and Search-->
+        <record id="view_product_template_product_promotional_scheme_form" model="ir.ui.view">
+            <field name="name">view.product.template.product.promotional.scheme.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="point_of_sale.product_template_form_view"/>
+            <field name="arch" type="xml">
+                <div name="options" position="inside">
+                    <div>
+                        <field name="is_promotional_item"/>
+                        <label for="is_promotional_item"/>
+                    </div>
+                </div>
+            </field>
+        </record>
+
+        <record id="view_product_template_search_product_promotional_scheme" model="ir.ui.view">
+            <field name="name">product.template.search.product.promotional.scheme</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="point_of_sale.product_template_search_view_pos"/>
+            <field name="arch" type="xml">
+                <filter name="filter_to_purchase" position="after">
+                   <filter name="filter_promotional_item" string="Promotional Item" domain="[('is_promotional_item', '=', True)]"/>
+                </filter>
+            </field>
+        </record>
+
+    </data>
+</odoo>
